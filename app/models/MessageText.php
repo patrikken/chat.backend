@@ -3,7 +3,7 @@
 namespace App\Models;
 use App\Models\Message;
 
-class MessageText extends Message
+class MessageText extends Models
 { 
     const MESSAGE_TYPE = 'TEXT';
     /**

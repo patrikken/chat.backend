@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-class Message extends \Phalcon\Mvc\Model
-{
+class Message extends \Phalcon\Mvc\Model {
 
+    
+    const MESSAGE_TYPE_TEXT = 'TEXT';
+    
     /**
      *
      * @var integer
@@ -40,11 +42,16 @@ class Message extends \Phalcon\Mvc\Model
      * @var string
      */
     protected $isReaded;
+
+    /**
+     *
+     * @var string
+     */
+    protected $content;
     
     public function onConstruct() {
         $date = new \DateTime(); 
-        $this->creationDate =  $date->format('Y-m-d H:i:s');;
-        $this->isReaded = false;
+        $this->creationDate = $date->format('Y-m-d H:i:s');;
     }
 
     /**
@@ -53,8 +60,7 @@ class Message extends \Phalcon\Mvc\Model
      * @param integer $messageType
      * @return $this
      */
-    public function setMessageType($messageType)
-    {
+    public function setMessageType($messageType) {
         $this->messageType = $messageType;
 
         return $this;
@@ -66,8 +72,7 @@ class Message extends \Phalcon\Mvc\Model
      * @param integer $id
      * @return $this
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
 
         return $this;
@@ -79,8 +84,7 @@ class Message extends \Phalcon\Mvc\Model
      * @param string $creationDate
      * @return $this
      */
-    public function setCreationDate($creationDate)
-    {
+    public function setCreationDate($creationDate) {
         $this->creationDate = $creationDate;
 
         return $this;
@@ -92,8 +96,7 @@ class Message extends \Phalcon\Mvc\Model
      * @param integer $chat_hist_id
      * @return $this
      */
-    public function setChatHistId($chat_hist_id)
-    {
+    public function setChatHistId($chat_hist_id) {
         $this->chat_hist_id = $chat_hist_id;
 
         return $this;
@@ -105,8 +108,7 @@ class Message extends \Phalcon\Mvc\Model
      * @param integer $sender
      * @return $this
      */
-    public function setSender($sender)
-    {
+    public function setSender($sender) {
         $this->sender = $sender;
 
         return $this;
@@ -118,9 +120,20 @@ class Message extends \Phalcon\Mvc\Model
      * @param string $isReaded
      * @return $this
      */
-    public function setIsReaded($isReaded)
-    {
+    public function setIsReaded($isReaded) {
         $this->isReaded = $isReaded;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field content
+     *
+     * @param string $content
+     * @return $this
+     */
+    public function setContent($content) {
+        $this->content = $content;
 
         return $this;
     }
@@ -130,8 +143,7 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return integer
      */
-    public function getMessageType()
-    {
+    public function getMessageType() {
         return $this->messageType;
     }
 
@@ -140,8 +152,7 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -150,8 +161,7 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getCreationDate()
-    {
+    public function getCreationDate() {
         return $this->creationDate;
     }
 
@@ -160,8 +170,7 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return integer
      */
-    public function getChatHistId()
-    {
+    public function getChatHistId() {
         return $this->chat_hist_id;
     }
 
@@ -170,8 +179,7 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return integer
      */
-    public function getSender()
-    {
+    public function getSender() {
         return $this->sender;
     }
 
@@ -180,16 +188,23 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getIsReaded()
-    {
+    public function getIsReaded() {
         return $this->isReaded;
+    }
+
+    /**
+     * Returns the value of field content
+     *
+     * @return string
+     */
+    public function getContent() {
+        return $this->content;
     }
 
     /**
      * Initialize method for model.
      */
-    public function initialize()
-    {
+    public function initialize() {
         $this->setSchema("public");
         $this->setSource("message");
         $this->hasMany('id', 'App\Models\File', 'id_message', ['alias' => 'File']);
@@ -201,8 +216,7 @@ class Message extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getSource()
-    {
+    public function getSource() {
         return 'message';
     }
 
@@ -212,8 +226,7 @@ class Message extends \Phalcon\Mvc\Model
      * @param mixed $parameters
      * @return Message[]|Message|\Phalcon\Mvc\Model\ResultSetInterface
      */
-    public static function find($parameters = null)
-    {
+    public static function find($parameters = null) {
         return parent::find($parameters);
     }
 
@@ -223,13 +236,12 @@ class Message extends \Phalcon\Mvc\Model
      * @param mixed $parameters
      * @return Message|\Phalcon\Mvc\Model\ResultInterface
      */
-    public static function findFirst($parameters = null)
-    {
+    public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);
     }
 
-    public function getSequenceName()
-    {
+    public function getSequenceName() {
         return "\"message_id_seq\"";
     }
+
 }

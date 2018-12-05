@@ -20,16 +20,35 @@ class MessageController extends AbstractController {
      */
     public function sendMessageAction() {
         $data = [];
-        $data["sender"] = $this->request->getPost("sender");
-        $data["reciever"] = $this->request->getPost("reciever");
-        $data["content"] = $this->request->getPost("content");
+        $data["sender"] = $this->request->getPost("user_sender_id");
+        $data["reciever"] = $this->request->getPost("user_reciever_id");
+        $data["content"] = $this->request->getPost("body");
         $data["type"] = $this->request->getPost("type");
         try {
             $this->messageService->sendMessage($data);
         } catch (ServiceException $e) {
             throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
         }
-        return parent::chatResponce('User successfull created');
+        return parent::chatResponce('');
+    }
+    
+    /**
+     * send message to other user
+     * Returns user list
+     *
+     * @return array
+     */
+    public function getChatBoxAction() {
+        $data = [];
+        $data["sender"] = $this->request->getPost("sender");
+        $data["reciever"] = $this->request->getPost("reciever"); 
+        $data["page"] =  $this->request->getPost("page"); 
+        try {
+           $reponse = $this->messageService->getMessages($data); 
+        } catch (ServiceException $e) {
+            throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+        }
+        return parent::chatResponce('',$reponse);
     }
 
     /**

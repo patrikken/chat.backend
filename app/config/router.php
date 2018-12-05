@@ -19,8 +19,15 @@ $msgCollection = new \Phalcon\Mvc\Micro\Collection();
 $msgCollection->setHandler('\App\Controllers\MessageController', true);
 $msgCollection->setPrefix('/chat');
 $msgCollection->post('/send', 'sendMessageAction'); 
+$msgCollection->post('/chat-box', 'getChatBoxAction'); 
+
+$groupCollection = new \Phalcon\Mvc\Micro\Collection();
+$groupCollection->setHandler('\App\Controllers\GroupController', true);
+$groupCollection->setPrefix('/chat');
+$groupCollection->post('/new-group', 'addAction');  
 
 
+$app->mount($groupCollection);
 $app->mount($usersCollection);
 $app->mount($msgCollection);
 // not found URLs

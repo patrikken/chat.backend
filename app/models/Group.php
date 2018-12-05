@@ -111,6 +111,10 @@ class Group extends \Phalcon\Mvc\Model
     {
         return 'group';
     }
+    
+    public function getSequenceName() {
+        return "\"Groupe_id_seq\"";
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions

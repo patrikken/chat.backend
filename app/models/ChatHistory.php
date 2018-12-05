@@ -42,7 +42,7 @@ class ChatHistory extends \Phalcon\Mvc\Model
         $this->setSchema("public");
         $this->setSource("chatHistory");
         $this->hasMany('id', 'App\Models\Group', 'chat_hist_id', ['alias' => 'Group']);
-        $this->hasMany('id', 'App\Models\Message', 'chat_hist_id', ['alias' => 'Message']);
+        $this->hasMany('id', 'App\Models\Message', 'chat_hist_id', ['alias' => 'Messages']);
         $this->hasMany('id', 'App\Models\Privatechat', 'chat_hist_id', ['alias' => 'Privatechat']);
     }
 

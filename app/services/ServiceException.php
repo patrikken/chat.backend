@@ -11,4 +11,10 @@ namespace App\Services;
  */
 class ServiceException extends \RuntimeException
 {
+    public function __construct($e, $message = '', $code = 0, $logger = null) { 
+        $logger->critical(
+                        $code. ' '. $message
+                );
+        return parent::__construct($e, $message, $code);
+    }
 }

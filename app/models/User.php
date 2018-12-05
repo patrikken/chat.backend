@@ -45,8 +45,7 @@ class User extends \Phalcon\Mvc\Model {
 
     public function onConstruct() {
         $date = new \DateTime();
-        $date->format('Y-m-d H:i:s');
-        $this->lastconnexion = $date;
+        $this->lastconnexion = $date->format('Y-m-d H:i:s');
     }
 
     /**

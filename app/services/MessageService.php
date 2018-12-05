@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\MessageText;
+use App\Models\Message;
 use App\Models\ChatHistory;
 
 /**
@@ -13,7 +13,7 @@ use App\Models\ChatHistory;
 class MessageService extends AbstractService {
 
     /** Unable to create user */
-    const ERROR_UNABLE_SEND_MESSAG = 11001;
+    const ERROR_UNABLE_GET_DATA = 11001;
 
     /**
      * Send message
@@ -23,16 +23,48 @@ class MessageService extends AbstractService {
     public function sendMessage($data) {
         try {
 
-            $chatHitory = $this->privateChatService->getChatHistory($data['sender'], $data['reciever'], $data['content']);
-            $msg = new MessageText(); 
+            $chatHitory = $this->privateChatService->getChatHistory($data['sender'], $data['reciever'], true);
+            $msg = new Message();
             $msg->setSender($data["sender"])
-                    ->setContenu($data["content"])
+                    ->setContent($data["content"])
                     ->setChatHistId($chatHitory->getId())
-                    ->create(); 
-            return true;
+                    ->setMessageType($data["type"])
+                    ->create();
         } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e, $this->logger);
+        }
+        return true;
+    }
+
+    /**
+     * Send message
+     *
+     * @param array of message
+     */
+    public function getMessages($data) {
+        try {
+
+            $chatHitory = $this->privateChatService->getChatHistory($data['sender'], $data['reciever']);
+
+            if (!$chatHitory) {
+                return [];
+            }
+
+            $msgs = $chatHitory->getRelated('messages', [ 
+                'order' => 'creationDate DESC',
+                'limit' => 2,
+                'offset' => $data['page'], // offset of result
+                'count' => 'id'
+            ]);
+            $result = $msgs->toArray(); 
+            return $result;
+        } catch (\PDOException $e) {
+            $this->logger->critical(
+                    $e->getMessage() . ' ' . $e->getCode()
+            );
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);
         }
+        return true;
     }
 
     /**
