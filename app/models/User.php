@@ -5,7 +5,8 @@ namespace App\Models;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
-class User extends \Phalcon\Mvc\Model {
+class User extends \Phalcon\Mvc\Model
+{
 
     /**
      *
@@ -43,6 +44,12 @@ class User extends \Phalcon\Mvc\Model {
      */
     protected $id;
 
+    /**
+     *
+     * @var string
+     */
+    protected $status;
+    
     public function onConstruct() {
         $date = new \DateTime();
         $this->lastconnexion = $date->format('Y-m-d H:i:s');
@@ -54,7 +61,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param string $first_name
      * @return $this
      */
-    public function setFirstName($first_name) {
+    public function setFirstName($first_name)
+    {
         $this->first_name = $first_name;
 
         return $this;
@@ -66,7 +74,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param string $last_name
      * @return $this
      */
-    public function setLastName($last_name) {
+    public function setLastName($last_name)
+    {
         $this->last_name = $last_name;
 
         return $this;
@@ -78,7 +87,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param string $lastconnexion
      * @return $this
      */
-    public function setLastconnexion($lastconnexion) {
+    public function setLastconnexion($lastconnexion)
+    {
         $this->lastconnexion = $lastconnexion;
 
         return $this;
@@ -90,7 +100,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param string $email
      * @return $this
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
@@ -102,7 +113,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param string $password
      * @return $this
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
 
         return $this;
@@ -114,8 +126,22 @@ class User extends \Phalcon\Mvc\Model {
      * @param integer $id
      * @return $this
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field status
+     *
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -125,7 +151,8 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->first_name;
     }
 
@@ -134,7 +161,8 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->last_name;
     }
 
@@ -143,7 +171,8 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getLastconnexion() {
+    public function getLastconnexion()
+    {
         return $this->lastconnexion;
     }
 
@@ -152,7 +181,8 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -161,7 +191,8 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -170,8 +201,19 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
+    }
+
+    /**
+     * Returns the value of field status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
@@ -179,16 +221,18 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return boolean
      */
-    public function validation() {
+    public function validation()
+    {
         $validator = new Validation();
 
         $validator->add(
-                'email', new EmailValidator(
+            'email',
+            new EmailValidator(
                 [
-            'model' => $this,
-            'message' => 'Please enter a correct email address',
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
                 ]
-                )
+            )
         );
 
         return $this->validate($validator);
@@ -197,7 +241,8 @@ class User extends \Phalcon\Mvc\Model {
     /**
      * Initialize method for model.
      */
-    public function initialize() {
+    public function initialize()
+    {
         $this->setSchema("public");
         $this->setSource("user");
         $this->hasMany('id', 'App\Models\Privatechat', 'user1', ['alias' => 'Privatechat']);
@@ -209,7 +254,8 @@ class User extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getSource() {
+    public function getSource()
+    {
         return 'user';
     }
 
@@ -219,7 +265,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param mixed $parameters
      * @return User[]|User|\Phalcon\Mvc\Model\ResultSetInterface
      */
-    public static function find($parameters = null) {
+    public static function find($parameters = null)
+    {
         return parent::find($parameters);
     }
 
@@ -229,7 +276,8 @@ class User extends \Phalcon\Mvc\Model {
      * @param mixed $parameters
      * @return User|\Phalcon\Mvc\Model\ResultInterface
      */
-    public static function findFirst($parameters = null) {
+    public static function findFirst($parameters = null)
+    {
         return parent::findFirst($parameters);
     }
 

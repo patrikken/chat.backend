@@ -27,6 +27,7 @@ class UserService extends AbstractService {
                     ->setPassword(password_hash($userData['password'], PASSWORD_DEFAULT))
                     ->setLastName($userData['first_name'])
                     ->setFirstName($userData['last_name'])
+                    ->setStatus($userData['status'])
                     ->create();
 
             if (!$result) {
@@ -112,7 +113,7 @@ class UserService extends AbstractService {
 
             $result = $user->setemail($userData['email'])
                     ->setPass($userData['password'])
-                    ->setFirstName($userData['first_name'])
+                    ->setFirstName($userData['first_name']) 
                     ->setLastName($userData['last_name'])
                     ->update();
 
@@ -165,7 +166,7 @@ class UserService extends AbstractService {
                             [
                                 'conditions' => '',
                                 'bind' => [],
-                                'columns' => "id, email, first_name, last_name, lastconnexion",
+                                'columns' => "id, email, first_name, last_name, lastconnexion, status",
                             ]
             );
 

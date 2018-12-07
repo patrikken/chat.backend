@@ -44,6 +44,11 @@ class UserController extends AbstractController
         if (empty(trim($data['last_name']))) {
             $errors['last_name'] = 'String expected';
         }
+        
+        $data['status'] = $this->request->getPost('status');
+        if (empty(trim($data['status']))) {
+            $data['status'] = 'He there i\'am a new user';
+        }
 
         if ($errors) {
         	$errors['errors'] = true;
