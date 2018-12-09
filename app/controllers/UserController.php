@@ -80,9 +80,9 @@ class UserController extends AbstractController
      * @return array
      */
     public function getUserListAction()
-    {
+    { 
                try {
-            $userList = $this->userService->getUserList();
+            $userList = $this->userService->getUserList(); 
         } catch (ServiceException $e) {
             throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
         }

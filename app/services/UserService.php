@@ -175,8 +175,8 @@ class UserService extends AbstractService {
             }
 
             return $users->toArray();
-        } catch (\PDOException $e) {
-            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
+        } catch (\PDOException $e) { 
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e); 
         }
     }
 

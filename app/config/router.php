@@ -1,12 +1,23 @@
 <?php
 
 use Phalcon\Mvc\Micro;
+use Phalcon\Events\Manager;
+
+use App\Middleware\CORSMiddleware;
 
 $router = $di->getRouter();
+$eventsManager = new Manager();
 
 $app = new Micro();
 
-// Define your routes here
+ 
+$eventsManager->attach('micro', new CORSMiddleware());
+$app->before(new CORSMiddleware());
+
+//$eventsManager->attach('micro', new CORSMiddleware());
+//$app->after(new CORSMiddleware());
+
+// Handler user
 $usersCollection = new \Phalcon\Mvc\Micro\Collection();
 $usersCollection->setHandler('\App\Controllers\UserController', true);
 $usersCollection->setPrefix('/user');
@@ -15,12 +26,16 @@ $usersCollection->get('/list', 'getUserListAction');
 $usersCollection->put('/{userId:[1-9][0-9]*}', 'updateUserAction');
 $usersCollection->delete('/{userId:[1-9][0-9]*}', 'deleteUserAction');
 
+// Handler Message
 $msgCollection = new \Phalcon\Mvc\Micro\Collection();
 $msgCollection->setHandler('\App\Controllers\MessageController', true);
 $msgCollection->setPrefix('/chat');
 $msgCollection->post('/send', 'sendMessageAction'); 
+$msgCollection->Options('/send', 'sendMessageAction'); 
 $msgCollection->post('/chat-box', 'getChatBoxAction'); 
+$msgCollection->options('/chat-box', 'getChatBoxAction'); 
 
+// Handler Group
 $groupCollection = new \Phalcon\Mvc\Micro\Collection();
 $groupCollection->setHandler('\App\Controllers\GroupController', true);
 $groupCollection->setPrefix('/chat');
@@ -29,7 +44,7 @@ $groupCollection->post('/new-group', 'addAction');
 
 $app->mount($groupCollection);
 $app->mount($usersCollection);
-$app->mount($msgCollection);
+$app->mount($msgCollection); 
 // not found URLs
 $app->notFound(
   function () use ($app) {
@@ -44,3 +59,4 @@ $app->notFound(
 );
 
 $router->handle();
+$app->setEventsManager($eventsManager);

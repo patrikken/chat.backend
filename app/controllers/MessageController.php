@@ -20,10 +20,11 @@ class MessageController extends AbstractController {
      */
     public function sendMessageAction() {
         $data = [];
-        $data["sender"] = $this->request->getPost("user_sender_id");
-        $data["reciever"] = $this->request->getPost("user_reciever_id");
-        $data["content"] = $this->request->getPost("body");
-        $data["type"] = $this->request->getPost("type");
+        $jsonData = $this->request->getJsonRawBody();
+        $data["sender"] = $jsonData->user_sender_id;
+        $data["reciever"] = $jsonData->user_reciever_id;
+        $data["content"] = $jsonData->body;
+        $data["type"] = $jsonData->type; 
         try {
             $this->messageService->sendMessage($data);
         } catch (ServiceException $e) {
@@ -40,9 +41,13 @@ class MessageController extends AbstractController {
      */
     public function getChatBoxAction() {
         $data = [];
-        $data["sender"] = $this->request->getPost("sender");
-        $data["reciever"] = $this->request->getPost("reciever"); 
-        $data["page"] =  $this->request->getPost("page"); 
+        $jsonData = $this->request->getJsonRawBody();
+        $data["sender"] = $jsonData->sender;
+        $data["reciever"] = $jsonData->reciever; 
+        $data["page"] =  $jsonData->page;  
+        $this->logger->critical(
+                      $data["sender"]. ' vers '. $data["reciever"]
+                );
         try {
            $reponse = $this->messageService->getMessages($data); 
         } catch (ServiceException $e) {
@@ -50,23 +55,6 @@ class MessageController extends AbstractController {
         }
         return parent::chatResponce('',$reponse);
     }
-
-    /**
-     * Updating existing user
-     *
-     * @param string $userId
-     */
-    public function updateUserAction($userId) {
-        
-    }
-
-    /**
-     * Delete an existing user
-     *
-     * @param string $userId
-     */
-    public function deleteUserAction($userId) {
-        
-    }
+ 
 
 }

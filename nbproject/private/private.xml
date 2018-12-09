@@ -13,6 +13,7 @@
             <file>file:/var/www/html/chat-backend/app/logs/debug.log</file>
             <file>file:/var/www/html/chat-backend/app/models/Message.php</file>
             <file>file:/var/www/html/chat-backend/app/models/MessageText.php</file>
+            <file>file:/var/www/html/chat-backend/app/middleware/CORSMiddleware.php</file>
             <file>file:/var/www/html/chat-backend/app/models/User.php</file>
             <file>file:/var/www/html/chat-backend/app/services/ChatHistoryService.php</file>
             <file>file:/var/www/html/chat-backend/app/models/Group.php</file>
