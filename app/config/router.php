@@ -1,9 +1,8 @@
 <?php
 
 use Phalcon\Mvc\Micro;
-use Phalcon\Events\Manager;
-
-use App\Middleware\CORSMiddleware;
+use Phalcon\Events\Manager; 
+use App\Middleware\CORSMiddleware; // for CORS origine
 
 $router = $di->getRouter();
 $eventsManager = new Manager();
@@ -11,7 +10,7 @@ $eventsManager = new Manager();
 $app = new Micro();
 
  
-$eventsManager->attach('micro', new CORSMiddleware());
+$eventsManager->attach('micro', new CORSMiddleware()); 
 $app->before(new CORSMiddleware());
 
 //$eventsManager->attach('micro', new CORSMiddleware());
@@ -22,9 +21,9 @@ $usersCollection = new \Phalcon\Mvc\Micro\Collection();
 $usersCollection->setHandler('\App\Controllers\UserController', true);
 $usersCollection->setPrefix('/user');
 $usersCollection->post('/add', 'addAction');
-$usersCollection->get('/list', 'getUserListAction');
-$usersCollection->put('/{userId:[1-9][0-9]*}', 'updateUserAction');
-$usersCollection->delete('/{userId:[1-9][0-9]*}', 'deleteUserAction');
+$usersCollection->get('/list/{id}', 'getUserListAction');
+$usersCollection->get('/find/{email}', 'getUserByAction'); 
+$usersCollection->get('/chanels/{idUser}', 'getUserChanelAction'); 
 
 // Handler Message
 $msgCollection = new \Phalcon\Mvc\Micro\Collection();

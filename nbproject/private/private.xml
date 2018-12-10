@@ -6,6 +6,9 @@
             <file>file:/var/www/html/chat-backend/app/controllers/GroupController.php</file>
             <file>file:/var/www/html/chat-backend/app/services/UserService.php</file>
             <file>file:/var/www/html/chat-backend/app/controllers/UserController.php</file>
+            <file>file:/var/www/html/chat-backend/public/index.php</file>
+            <file>file:/var/www/html/chat-backend/app/auth/UserEmailAccountType.php</file>
+            <file>file:/var/www/html/chat-backend/app/config/di.php</file>
             <file>file:/var/www/html/chat-backend/app/services/MessageService.php</file>
             <file>file:/var/www/html/chat-backend/app/config/router.php</file>
             <file>file:/var/www/html/chat-backend/app/models/ChatHistory.php</file>
@@ -19,7 +22,8 @@
             <file>file:/var/www/html/chat-backend/app/models/Group.php</file>
             <file>file:/var/www/html/chat-backend/app/services/ServiceException.php</file>
             <file>file:/var/www/html/chat-backend/app/services/PrivateChatService.php</file>
-            <file>file:/var/www/html/chat-backend/app/controllers/MessageController.php</file>
+            <file>file:/var/www/html/chat-backend/app/config/loader.php</file>
+            <file>file:/var/www/html/chat-backend/app/models/PrivateChat.php</file>
         </group>
     </open-files>
 </project-private>

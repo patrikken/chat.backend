@@ -45,9 +45,7 @@ class MessageController extends AbstractController {
         $data["sender"] = $jsonData->sender;
         $data["reciever"] = $jsonData->reciever; 
         $data["page"] =  $jsonData->page;  
-        $this->logger->critical(
-                      $data["sender"]. ' vers '. $data["reciever"]
-                );
+       
         try {
            $reponse = $this->messageService->getMessages($data); 
         } catch (ServiceException $e) {

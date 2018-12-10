@@ -15,7 +15,7 @@ class PrivateChatService extends AbstractService {
     const ERROR_UNABLE_TO_FIND_CHAT = 11001;
 
     /**
-     * Returns users chat history
+     * Returns users chat history (private chanel)
      *
      * @return array
      */
@@ -56,11 +56,47 @@ class PrivateChatService extends AbstractService {
     public function getChatHistory($user1, $user2, $createIfNoexist = false) {
         try {
             $chatBox = $this->getPrivateChat($user1, $user2, $createIfNoexist);
-              if (!$chatBox)
+            if (!$chatBox)
                 return null;
             return $chatBox->Chathistory;
         } catch (\PDOException $e) {
-            throw new ServiceException($e->getMessage(), $e->getCode(), $e , $this->logger);
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e, $this->logger);
+        }
+    }
+    
+    /**
+     * Returns users chat history
+     *
+     * @return array
+     */
+    public function getUserDiscutionChat($userId) {
+        try {
+            $chatBox = PrivateChat::find(
+                            [
+                                'conditions' => 'user1 = :user: or user2 = :user:',
+                                'bind' => [
+                                    "user" => $userId, 
+                                ],
+                            ]
+            );
+            $toRet = [];
+            $ob = [];
+            foreach ($chatBox as $value) {
+                $user = $value->getRelated('User1');
+                if($user->getId() != $userId) {
+                    $ob['user'] = $user;
+                }else{
+                    $ob['user'] = $value->getRelated('User2');
+                }
+                $ob['msg'] = $value->getRelated('Chathistory')->getRelated('Messages', [ 
+                'order' => 'creationDate DESC',
+                'limit' => 1, 
+            ]);
+                array_push($toRet, $ob);
+            }
+            return $toRet;
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e, $this->logger);
         }
     }
 

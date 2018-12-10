@@ -11,6 +11,7 @@ $loader->registerNamespaces(
     'App\Controllers' => realpath(__DIR__ . '/../controllers/'),
     'App\Models'      => realpath(__DIR__ . '/../models/'),
     'App\Middleware'      => realpath(__DIR__ . '/../middleware/'),
+    'App\Auth'      => realpath(__DIR__ . '/../auth/'),
   ]
 );
 $loader->registerDirs(

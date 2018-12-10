@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+
 use App\Controllers\AbstractController;
 use App\Controllers\HttpExceptions\Http400Exception;
 use App\Controllers\HttpExceptions\Http422Exception;
@@ -79,10 +80,10 @@ class UserController extends AbstractController
      *
      * @return array
      */
-    public function getUserListAction()
+    public function getUserListAction($id)
     { 
                try {
-            $userList = $this->userService->getUserList(); 
+            $userList = $this->userService->getUserList(''.$id); 
         } catch (ServiceException $e) {
             throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
         }
@@ -92,24 +93,37 @@ class UserController extends AbstractController
     }
 
      /**
-     * Updating existing user
+     * Get existing user by email
      *
      * @param string $userId
      */
-    public function updateUserAction($userId)
-    {
-       
-    }
+    public function getUserByAction($email)
+    {  
+       try {
+            $user = $this->userService->findOnByEmail(''.$email); 
+        } catch (ServiceException $e) {
+            throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+        }
 
-    /**
-     * Delete an existing user
+        return $user;
+    }
+    
+     /**
+     * Get user discussions
      *
      * @param string $userId
      */
-    public function deleteUserAction($userId)
-    {
-       
+    public function getUserChanelAction($idUser)
+    {  
+       try {
+            $user = $this->privateChatService->getUserDiscutionChat(''.$idUser); 
+        } catch (ServiceException $e) {
+            throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+        }
+
+        return $user;
     }
+                
 
 }
 

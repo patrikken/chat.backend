@@ -4,8 +4,25 @@ use Phalcon\Db\Adapter\Pdo\Postgresql;
 use Phalcon\Logger;
 use Phalcon\Logger\Adapter\File as FileAdapter;
 
+use PhalconRest\Constants\Services;
+use PhalconRest\Auth\Manager as AuthManager;
+use App\Auth\UserEmailAccountType;
+
 // Initializing a DI Container
 $di = new \Phalcon\DI\FactoryDefault();
+
+/**; 
+ * Register Authentificate user 
+ 
+$di->setShared(Services::AUTH_MANAGER, function () use ($config) {
+
+    $authManager = new AuthManager($config->authentication->expirationTime);
+
+    $authManager->registerAccountType(UserEmailAccountType::NAME, new UserEmailAccountType());
+
+    return $authManager;
+
+});*/
 
 /**
  * Overriding Response-object to set the Content-type header globally

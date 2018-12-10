@@ -54,15 +54,16 @@ class UserService extends AbstractService {
                                 'conditions' => 'email = :email:',
                                 'bind' => [
                                     'email' => $email
-                                ]
+                                ],
+                                'columns' => "id, email, first_name, last_name, lastconnexion, status",
                             ]
             );
 
             if (!$user) {
-                return null;
+                return [];
             }
 
-            return $user;
+            return $user->toArray();
         } catch (\PDOException $e) {
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);
         }
@@ -113,7 +114,7 @@ class UserService extends AbstractService {
 
             $result = $user->setemail($userData['email'])
                     ->setPass($userData['password'])
-                    ->setFirstName($userData['first_name']) 
+                    ->setFirstName($userData['first_name'])
                     ->setLastName($userData['last_name'])
                     ->update();
 
@@ -160,12 +161,12 @@ class UserService extends AbstractService {
      *
      * @return array
      */
-    public function getUserList() {
+    public function getUserList($currentUserId) {
         try {
             $users = User::find(
                             [
-                                'conditions' => '',
-                                'bind' => [],
+                                'conditions' => 'id != :id:',
+                                'bind' => ['id' => $currentUserId], // Must be change by the logged user
                                 'columns' => "id, email, first_name, last_name, lastconnexion, status",
                             ]
             );
@@ -175,8 +176,8 @@ class UserService extends AbstractService {
             }
 
             return $users->toArray();
-        } catch (\PDOException $e) { 
-            throw new ServiceException($e->getMessage(), $e->getCode(), $e); 
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
