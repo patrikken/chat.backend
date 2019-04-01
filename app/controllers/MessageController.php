@@ -53,6 +53,26 @@ class MessageController extends AbstractController {
         }
         return parent::chatResponce('',$reponse);
     }
+
+    /**
+     * send message to other user
+     * Returns user list
+     *
+     * @return array
+     */
+    public function setAllToReadAction() {
+        $data = [];
+        $jsonData = $this->request->getJsonRawBody();
+        $data["sender"] = $jsonData->sender;
+        $data["reciever"] = $jsonData->reciever;     
+       
+        try {
+           $reponse = $this->privateChatService->setAllMessageToReaded($data["sender"], $data["reciever"]); 
+        } catch (ServiceException $e) {
+            throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+        }
+        return parent::chatResponce('',$reponse);
+    }
  
 
 }

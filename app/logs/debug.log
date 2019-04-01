@@ -79,3 +79,26 @@
 [Mon, 10 Dec 18 02:28:48 +0100][CRITICAL] Création du chathystory 56
 [Mon, 10 Dec 18 02:28:49 +0100][CRITICAL] Création du chathystory 57
 [Mon, 10 Dec 18 02:30:45 +0100][CRITICAL] Création du chathystory 58
+[Mon, 10 Dec 18 08:15:09 +0100][CRITICAL] Création du chathystory 59
+[Mon, 10 Dec 18 08:15:31 +0100][CRITICAL] Création du chathystory 60
+[Mon, 10 Dec 18 08:30:41 +0100][CRITICAL] Création du chathystory 61
+[Mon, 10 Dec 18 08:44:41 +0100][CRITICAL] SQLSTATE[HY093]: Invalid parameter number: :isReaded
+[Mon, 10 Dec 18 08:48:48 +0100][CRITICAL] CICICI********
+[Mon, 10 Dec 18 08:49:19 +0100][CRITICAL] SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+[Mon, 10 Dec 18 08:49:54 +0100][CRITICAL] uPDATED********
+[Mon, 10 Dec 18 08:49:54 +0100][CRITICAL] uPDATED********
+[Mon, 10 Dec 18 08:49:54 +0100][CRITICAL] uPDATED********
+[Mon, 10 Dec 18 08:49:54 +0100][CRITICAL] uPDATED********
+[Mon, 10 Dec 18 08:49:54 +0100][CRITICAL] uPDATED********
+[Mon, 10 Dec 18 08:50:11 +0100][CRITICAL] uPDATED********
+[Mon, 10 Dec 18 08:52:02 +0100][CRITICAL] Création du chathystory 62
+[Mon, 10 Dec 18 08:53:53 +0100][CRITICAL] Création du chathystory 63
+[Mon, 10 Dec 18 09:04:38 +0100][CRITICAL] Création du chathystory 64
+[Mon, 10 Dec 18 09:04:54 +0100][CRITICAL] Création du chathystory 65
+[Mon, 10 Dec 18 09:28:54 +0100][CRITICAL] Création du chathystory 66
+[Mon, 10 Dec 18 09:29:05 +0100][CRITICAL] Création du chathystory 67
+[Mon, 10 Dec 18 09:29:05 +0100][CRITICAL] Création du chathystory 68
+[Mon, 10 Dec 18 10:49:43 +0100][CRITICAL] Création du chathystory 69
+[Mon, 10 Dec 18 10:49:43 +0100][CRITICAL] Création du chathystory 70
+[Mon, 10 Dec 18 10:50:30 +0100][CRITICAL] Création du chathystory 71
+[Mon, 10 Dec 18 10:54:03 +0100][CRITICAL] Création du chathystory 72

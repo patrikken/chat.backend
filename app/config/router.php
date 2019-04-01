@@ -32,7 +32,9 @@ $msgCollection->setPrefix('/chat');
 $msgCollection->post('/send', 'sendMessageAction'); 
 $msgCollection->Options('/send', 'sendMessageAction'); 
 $msgCollection->post('/chat-box', 'getChatBoxAction'); 
-$msgCollection->options('/chat-box', 'getChatBoxAction'); 
+$msgCollection->options('/chat-box', 'getChatBoxAction');
+$msgCollection->post('/all-readed', 'setAllToReadAction'); 
+$msgCollection->options('/all-readed', 'setAllToReadAction'); 
 
 // Handler Group
 $groupCollection = new \Phalcon\Mvc\Micro\Collection();

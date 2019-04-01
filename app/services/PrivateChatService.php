@@ -91,7 +91,7 @@ class PrivateChatService extends AbstractService {
                 $ob['msg'] = $value->getRelated('Chathistory')->getRelated('Messages', [ 
                 'order' => 'creationDate DESC',
                 'limit' => 1, 
-            ]);
+            ]); 
                 array_push($toRet, $ob);
             }
             return $toRet;
@@ -99,5 +99,36 @@ class PrivateChatService extends AbstractService {
             throw new ServiceException($e->getMessage(), $e->getCode(), $e, $this->logger);
         }
     }
+
+    /**
+    * SET ALL MESSAGE IN CHANEL TO READED
+     * Returns BOOLEAN
+     *
+     * @return array
+     */
+    public function setAllMessageToReaded($user1, $user2) {
+        try {
+            $chatBox = $this->getPrivateChat($user1, $user2, false);
+            if (!$chatBox)
+                return true;
+            $msgs =$chatBox->getRelated('Chathistory')->getRelated('Messages', [ 
+                'conditions' => 'isReaded = :isReaded:',
+                'bind' => [
+                                    "isReaded" => 0, 
+                                ]
+            ]); 
+            foreach ($msgs as $value) {
+                $value->setIsReaded(true);
+                   $value->update(); 
+}
+
+        } catch (\PDOException $e) {
+            $this->logger->critical(
+                  $e->getMessage()
+                );
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e, $this->logger);
+        }
+        return true;
+    } 
 
 }
